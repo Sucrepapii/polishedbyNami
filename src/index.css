@@ -1,0 +1,38 @@
+/* index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply text-gray-800;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-pink-400 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-pink-500;
+}
