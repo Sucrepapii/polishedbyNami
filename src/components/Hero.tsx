@@ -25,9 +25,12 @@ const Hero = ({ onBookNow }: HeroProps) => {
               >
                 Book Appointment
               </button>
-              <button className="border-2 border-pink-500 text-pink-500 hover:bg-pink-50 px-8 py-3 rounded-full font-semibold text-lg transition-colors">
+              <a
+                href="#services"
+                className="inline-flex items-center justify-center border-2 border-pink-500 text-pink-500 hover:bg-pink-50 px-8 py-3 rounded-full font-semibold text-lg transition-colors"
+              >
                 View Services
-              </button>
+              </a>
             </div>
           </div>
 
@@ -35,14 +38,51 @@ const Hero = ({ onBookNow }: HeroProps) => {
           <div className="relative">
             <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-2xl">
               {/* Placeholder for hero image */}
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center">
-                <div className="text-white text-center p-8">
-                  <div className="text-6xl mb-4">💅</div>
-                  <p className="text-xl font-semibold">Professional Nail Artistry</p>
+              <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-2xl">
+                {/* Background image - now layered on top */}
+                <div
+                  className="absolute inset-0 bg-cover bg-center z-10"
+                  style={{
+                    backgroundImage: 'url("https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80")',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}
+                />
+
+                {/* Gradient overlay for better text readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-20" />
+
+                {/* 3D Text in bottom left */}
+                <div className="absolute bottom-4 left-4 z-30">
+                  <div className="relative">
+                    {/* Shadow layer for 3D effect */}
+                    <div className="absolute -bottom-1 -right-1 w-full">
+                      <p className="text-3xl font-black text-black/40 tracking-tight">
+                        LUXURY NAILS
+                      </p>
+                      <p className="text-lg font-bold text-black/30 tracking-wide">
+                        ARTISTRY & DESIGN
+                      </p>
+                    </div>
+
+                    {/* Main 3D text */}
+                    <div className="relative">
+                      <p className="text-3xl font-black text-white tracking-tight drop-shadow-lg">
+                        LUXURY NAILS
+                      </p>
+                      <p className="text-lg font-bold text-pink-200 tracking-wide drop-shadow-md">
+                        ARTISTRY & DESIGN
+                      </p>
+                    </div>
+                  </div>
                 </div>
+
+                {/* Decorative elements */}
+                <div className="absolute -top-4 -right-4 w-20 h-20 bg-yellow-300 rounded-full opacity-20 z-0"></div>
+                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-pink-300 rounded-full opacity-20 z-0"></div>
               </div>
             </div>
-            
+
             {/* Decorative elements */}
             <div className="absolute -top-4 -right-4 w-20 h-20 bg-yellow-300 rounded-full opacity-20"></div>
             <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-pink-300 rounded-full opacity-20"></div>

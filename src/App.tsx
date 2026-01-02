@@ -15,8 +15,8 @@ function App() {
     <div className="min-h-screen bg-white">
       <Header onBookNow={() => setIsBookingModalOpen(true)} />
       <Hero onBookNow={() => setIsBookingModalOpen(true)} />
-      <Services />
-      <Portfolio />
+      <Services onBookNow={() => setIsBookingModalOpen(true)} />
+      {/* <Portfolio /> */}
       <Booking 
         isOpen={isBookingModalOpen} 
         onClose={() => setIsBookingModalOpen(false)} 
