@@ -98,9 +98,11 @@ const nailServices = {
       {
         name: 'Toe Services',
         options: [
-          { name: 'Plain set', price: 2000 },
-          { name: 'Facing big toe', price: 2100 },
-          { name: 'Facing all', price: 3000 }
+          { name: 'Soak Off', price: 2000 },
+          { name: 'Gel on Natural Toes', price: 3000 },
+          { name: 'Fixing on Big Toe alone', price: 4000 },
+          { name: 'Gel Fixing on all Toes', price: 5000 },
+          { name: 'Plain Acrylic', price: 6000 },
         ]
       }
     ],
