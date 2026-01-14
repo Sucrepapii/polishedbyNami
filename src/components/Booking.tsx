@@ -1,138 +1,16 @@
 // components/Booking.jsx
 import React, { useState } from 'react';
+import { NAIL_SERVICES } from '../data/services';
+import { TIME_SLOTS, BUSINESS_INFO } from '../constants';
+import type { SelectedService, BookingFormData } from '../types';
 
 interface BookingProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-// Service data structure with Acrylic and Gel as subtypes of Plain Nails
-const nailServices = {
-  'Plain Nails': {
-    description: 'Basic nail care with shaping, cuticle work, and polish application.',
-    subtypes: {
-      'Acrylic': {
-        categories: [
-          {
-            name: 'Short',
-            options: [
-              { name: '1 magnet', price: 8000 },
-              { name: '2 magnet', price: 9000 }
-            ]
-          },
-          {
-            name: 'Medium',
-            options: [
-              { name: '3 magnet', price: 10000 },
-              { name: '4 magnet', price: 11000 }
-            ]
-          },
-          {
-            name: 'Long',
-            options: [
-              { name: '5 magnet', price: 12000 },
-              { name: '6 magnet', price: 13000 }
-            ]
-          },
-          {
-            name: 'X-Long',
-            options: [
-              { name: '7 magnet', price: 14000 },
-              { name: '8 magnet', price: 15000 }
-            ]
-          }
-        ]
-      },
-      'Gel': {
-        categories: [
-          {
-            name: 'Short',
-            options: [
-              { name: '1 magnet', price: 5000 },
-              { name: '2 magnet', price: 6000 }
-            ]
-          },
-          {
-            name: 'Medium',
-            options: [
-              { name: '3 magnet', price: 7000 },
-              { name: '4 magnet', price: 8000 }
-            ]
-          },
-          {
-            name: 'Long',
-            options: [
-              { name: '5 magnet', price: 9000 },
-              { name: '6 magnet', price: 10000 }
-            ]
-          },
-          {
-            name: 'X-Long',
-            options: [
-              { name: '7 magnet', price: 11000 },
-              { name: '8 magnet', price: 12000 }
-            ]
-          }
-        ]
-      }
-    }
-  },
-  'Design': {
-    categories: [
-      {
-        name: 'Per Finger',
-        options: [
-          { name: 'French tip', price: 200, perFinger: true },
-          { name: 'Air brush', price: 250, perFinger: true },
-          { name: 'Chrome', price: 250, perFinger: true },
-          { name: '3D', price: 260, perFinger: true },
-          { name: 'Cat eye', price: 400, perFinger: true },
-          { name: 'Blooming gel', price: 250, perFinger: true }
-        ]
-      }
-    ],
-    description: 'Creative nail art and custom designs to express your style.'
-  },
-  'Toe Nails': {
-    categories: [
-      {
-        name: 'Toe Services',
-        options: [
-          { name: 'Soak Off', price: 2000 },
-          { name: 'Gel on Natural Toes', price: 3000 },
-          { name: 'Fixing on Big Toe alone', price: 4000 },
-          { name: 'Gel Fixing on all Toes', price: 5000 },
-          { name: 'Plain Acrylic', price: 6000 },
-        ]
-      }
-    ],
-    description: 'Professional pedicure services for healthy and beautiful feet.'
-  },
-  'Pedicure': {
-    categories: [
-      {
-        name: 'Pedicure Prices',
-        options: [
-          { name: 'Male', price: 10000 },
-          { name: 'Female', price: 8000 }
-        ]
-      }
-    ],
-    description: 'Complete foot care with exfoliation, massage, and polish.'
-  }
-};
-
-interface SelectedService {
-  service: string;
-  subtype?: string;
-  option: string;
-  basePrice: number;
-  isPerFinger: boolean;
-  totalPrice: number;
-}
-
 const Booking = ({ isOpen, onClose }: BookingProps) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<BookingFormData>({
     name: '',
     email: '',
     phone: '',
@@ -148,15 +26,6 @@ const Booking = ({ isOpen, onClose }: BookingProps) => {
   const [selectedServiceDetails, setSelectedServiceDetails] = useState<any>(null);
   const [selectedSubtypeDetails, setSelectedSubtypeDetails] = useState<any>(null);
   const [isWhatsAppRedirecting, setIsWhatsAppRedirecting] = useState(false);
-
-  const timeSlots = [
-    '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
-    '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'
-  ];
-
-  // WhatsApp phone number (replace with actual business WhatsApp number)
-  const whatsappNumber = '2348114554741'; // Example: Nigerian number with country code
-  const businessName = 'Polished by Nami';
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -174,7 +43,7 @@ const Booking = ({ isOpen, onClose }: BookingProps) => {
     setCurrentService(value);
 
     if (value) {
-      const serviceData = nailServices[value as keyof typeof nailServices];
+      const serviceData = NAIL_SERVICES[value as keyof typeof NAIL_SERVICES];
       setSelectedServiceDetails(serviceData);
       setSelectedSubtypeDetails(null);
       setCurrentSubtype('');
@@ -192,13 +61,13 @@ const Booking = ({ isOpen, onClose }: BookingProps) => {
     setCurrentSubtype(value);
 
     if (currentService === 'Plain Nails') {
-      const subtypeData = nailServices['Plain Nails'].subtypes[value as keyof typeof nailServices['Plain Nails']['subtypes']];
+      const subtypeData = NAIL_SERVICES['Plain Nails'].subtypes[value as keyof typeof NAIL_SERVICES['Plain Nails']['subtypes']];
       setSelectedSubtypeDetails(subtypeData);
       setCurrentOption('');
     }
   };
 
-  const handleOptionChange = (optionName: string, optionPrice: number, isPerFinger: boolean = false) => {
+  const handleOptionChange = (optionName: string) => {
     setCurrentOption(optionName);
   };
 
@@ -210,25 +79,25 @@ const Booking = ({ isOpen, onClose }: BookingProps) => {
 
     // Find the selected option price
     if (currentService === 'Plain Nails' && currentSubtype) {
-      const subtypeData = nailServices['Plain Nails'].subtypes[currentSubtype as keyof typeof nailServices['Plain Nails']['subtypes']];
+      const subtypeData = NAIL_SERVICES['Plain Nails'].subtypes[currentSubtype as keyof typeof NAIL_SERVICES['Plain Nails']['subtypes']];
       if (subtypeData) {
         for (const category of subtypeData.categories) {
           const option = category.options.find(opt => opt.name === currentOption);
           if (option) {
             basePrice = option.price;
-            isPerFinger = option.perFinger || false;
+            isPerFinger = (option as any).perFinger || false;
             break;
           }
         }
       }
     } else {
-      const serviceData = nailServices[currentService as keyof typeof nailServices];
+      const serviceData = NAIL_SERVICES[currentService as keyof typeof NAIL_SERVICES];
       if (serviceData && 'categories' in serviceData) {
         for (const category of serviceData.categories) {
           const option = category.options.find(opt => opt.name === currentOption);
           if (option) {
             basePrice = option.price;
-            isPerFinger = option.perFinger || false;
+            isPerFinger = (option as any).perFinger || false;
             break;
           }
         }
@@ -293,7 +162,7 @@ const Booking = ({ isOpen, onClose }: BookingProps) => {
       message += `*Additional Notes:*%0A${formData.message}%0A%0A`;
     }
 
-    message += `_This booking was submitted via ${businessName} website_`;
+    message += `_This booking was submitted via ${BUSINESS_INFO.name} website_`;
 
     return message;
   };
@@ -327,7 +196,7 @@ const Booking = ({ isOpen, onClose }: BookingProps) => {
     const whatsappMessage = formatBookingForWhatsApp();
 
     // Create WhatsApp URL
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+    const whatsappUrl = `https://wa.me/${BUSINESS_INFO.whatsappNumber}?text=${whatsappMessage}`;
 
     // Open WhatsApp in new tab
     window.open(whatsappUrl, '_blank');
@@ -455,7 +324,7 @@ const Booking = ({ isOpen, onClose }: BookingProps) => {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 >
                   <option value="">Select time slot</option>
-                  {timeSlots.map((time, index) => (
+                  {TIME_SLOTS.map((time, index) => (
                     <option key={index} value={time}>{time}</option>
                   ))}
                 </select>
@@ -476,7 +345,7 @@ const Booking = ({ isOpen, onClose }: BookingProps) => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                   >
                     <option value="">Choose a service</option>
-                    {Object.keys(nailServices).map((service) => (
+                    {Object.keys(NAIL_SERVICES).map((service) => (
                       <option key={service} value={service}>{service}</option>
                     ))}
                   </select>
@@ -522,7 +391,7 @@ const Booking = ({ isOpen, onClose }: BookingProps) => {
                                       type="radio"
                                       name="serviceOption"
                                       checked={currentOption === option.name}
-                                      onChange={() => handleOptionChange(option.name, option.price, option.perFinger)}
+                                      onChange={() => handleOptionChange(option.name)}
                                       className="mr-3 text-yellow-500 focus:ring-pink-500"
                                     />
                                     <span className="text-gray-700">{option.name}</span>
