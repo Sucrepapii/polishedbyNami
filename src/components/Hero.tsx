@@ -1,5 +1,6 @@
 // components/Hero.jsx
 import React from 'react';
+import { motion } from 'framer-motion';
 import Button from './ui/Button';
 
 interface HeroProps {
@@ -7,104 +8,100 @@ interface HeroProps {
 }
 
 const Hero = ({ onBookNow }: HeroProps) => {
-  const arrowIcon = (
-    <svg
-      className="w-5 h-5"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-    </svg>
-  );
-
-  const downArrowIcon = (
-    <svg
-      className="w-5 h-5"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-    </svg>
-  );
-
   return (
-    <section id="home" className="relative bg-gradient-to-r from-white-50 to-gray-400 py-16 md:py-24">
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
-          <div className="text-center md:text-left">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-              Elevate Your <span className="text-yellow-500">Nail Game</span>
-            </h2>
-            <p className="text-lg text-gray-600 mb-8">
-              Professional nail services with precision and artistry. From classic manicures to stunning nail art, we bring creativity to your fingertips.
+    <section id="home" className="relative h-screen min-h-[600px] flex items-center bg-gray-50 overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-secondary/10 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-t from-primary/5 to-transparent rounded-tr-[100px]" />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10 pt-20">
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+          {/* Text Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center md:text-left"
+          >
+            <motion.span
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="inline-block py-1 px-3 mb-6 border border-primary/30 rounded-full bg-primary/5 text-primary text-sm font-medium tracking-wider uppercase"
+            >
+              Exquisite & Professional Care
+            </motion.span>
+
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-dark mb-6 leading-tight">
+              Elevate Your <br />
+              <span className="relative text-transparent bg-clip-text bg-gradient-to-r from-primary to-yellow-600">
+                Nail Artistry
+                <svg className="absolute w-full h-3 -bottom-2 left-0 text-secondary opacity-50" viewBox="0 0 100 10" preserveAspectRatio="none">
+                  <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="2" fill="none" />
+                </svg>
+              </span>
+            </h1>
+
+            <p className="text-lg md:text-xl text-gray-500 mb-10 max-w-lg mx-auto md:mx-0 font-light leading-relaxed">
+              Experience the pinnacle of nail care where precision meets passion. We create stunning, long-lasting designs tailored to your unique style.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-              <Button onClick={onBookNow} icon={arrowIcon}>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+            >
+              <Button onClick={onBookNow} className="shadow-xl shadow-primary/20">
                 Book Appointment
               </Button>
-
-              <Button variant="outline" href="#services" icon={downArrowIcon}>
-                View Services
+              <Button variant="outline" href="#services">
+                Explore Services
               </Button>
+            </motion.div>
+          </motion.div>
+
+          {/* Hero Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="relative hidden md:block"
+          >
+            <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl mr-4 md:mr-0 aspect-[4/5] max-h-[600px] ml-auto">
+              <img
+                src="https://images.unsplash.com/photo-1588359953494-0c215e3cedc6?q=80&w=388&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Luxury Nail Art"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
             </div>
-          </div>
 
-          {/* Right Content - Image/Illustration */}
-          <div className="relative">
-            <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-2xl">
-              {/* Placeholder for hero image */}
-              <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-2xl">
-                {/* Background image - now layered on top */}
-                <div
-                  className="absolute inset-0 bg-cover bg-center z-10"
-                  style={{
-                    backgroundImage: 'url("https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80")',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                  }}
-                />
-
-                {/* Gradient overlay for better text readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-20" />
-
-                {/* 3D Text in bottom left */}
-                <div className="absolute bottom-4 left-4 z-30">
-                  <div className="relative">
-                    {/* Shadow layer for 3D effect */}
-                    <div className="absolute -bottom-1 -right-1 w-full">
-                      <p className="text-3xl font-black text-black/40 tracking-tight">
-                        LUXURY NAILS
-                      </p>
-                      <p className="text-lg font-bold text-black/30 tracking-wide">
-                        ARTISTRY & DESIGN
-                      </p>
-                    </div>
-
-                    {/* Main 3D text */}
-                    <div className="relative">
-                      <p className="text-3xl font-black text-yellow-500  tracking-tight drop-shadow-lg">
-                        LUXURY NAILS
-                      </p>
-                      <p className="text-lg font-bold text-pink-200 tracking-wide drop-shadow-md">
-                        ARTISTRY & DESIGN
-                      </p>
-                    </div>
-                  </div>
+            {/* Floating Cards */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -bottom-8 -left-8 z-20 bg-white p-4 rounded-xl shadow-xl max-w-xs"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-500">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
                 </div>
-
-                {/* Decorative elements */}
-                <div className="absolute -top-4 -right-4 w-20 h-20 bg-yellow-300 rounded-full opacity-20 z-0"></div>
-                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-pink-300 rounded-full opacity-20 z-0"></div>
+                <div>
+                  <p className="font-bold text-dark text-sm">Top Rated Service</p>
+                  <p className="text-xs text-gray-500">5.0 Star Reviews</p>
+                </div>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Decorative elements */}
-            <div className="absolute -top-4 -right-4 w-20 h-20 bg-yellow-300 rounded-full opacity-20"></div>
-            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-pink-300 rounded-full opacity-20"></div>
-          </div>
+            <div className="absolute -top-6 -right-6 w-24 h-24 bg-secondary/30 rounded-full blur-2xl -z-10"></div>
+            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl -z-10"></div>
+          </motion.div>
         </div>
       </div>
     </section>
